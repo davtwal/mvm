@@ -1,0 +1,69 @@
+#base robot_giants.pop
+#base robot_standard.pop
+
+WaveSchedule {
+    StartingCurrency 400
+    CanBotsAttackWhileInSpawnRoom No
+    RespawnWaveTime 8
+
+    AddSentryBusterWhenDamageDealtExceeds 1000
+
+    Mission {
+        Objective DestroySentries
+        Where spawnbotBeginAtWave 1
+        RunForThisManyWaves 1
+        CooldownTime 20
+        DesiredCount 1
+
+        TFBot {
+            Template T_TFBot_SentryBuster
+        }
+    }
+
+    Wave {
+        StartWaveOutput {
+            Target wave_start_relay
+            Action Trigger
+        }
+
+        DoneOutput {
+            Target wave_finished_relay
+            Action Trigger
+        }
+
+        WaveSpawn {
+            TotalCurrency 300
+            Name "W1_medchain"
+
+            Where spawnbot
+            TotalCount 3
+            MaxActive 3
+            SpawnCount 3
+
+            Squad {
+                TFBot {
+                    // ClassIcon PyroHomewreckerLite
+                    Class Pyro
+                    Skill Expert
+                    Scale 1.4
+                    Item "The Homewrecker"
+                    Tag "bot_giant"
+                    WeaponRestrictions MeleeOnly
+                    Attributes "AlwaysCrit"
+                    Attributes "MiniBoss"
+                    CharacterAttributes {
+                        "move speed bonus" 0.75
+                    }
+                }
+
+                TFBot {
+                    Template T_TFBot_Giant_Medic
+                }
+
+                TFBot {
+                    Template T_TFBot_Giant_Medic
+                }
+            }
+        }
+    }
+}

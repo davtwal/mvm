@@ -1,0 +1,146 @@
+#base robot_giant.pop
+#base robot_standard.pop
+
+WaveSchedule {
+    StartingCurrency 6000
+    CanBotsAttackWhileInSpawnRoom no
+    RespawnWaveTime 0
+
+    LuaScriptFile "scripts/medic_chain.lua"
+
+    Wave {
+        StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+
+        WaveSpawn {
+            Name wave1a
+            Where spawnbot
+            TotalCount 12
+            MaxActive 6
+            SpawnCount 3
+            WaitBeforeStarting 0
+            WaitBetweenSpawns 10
+            TotalCurrency 300
+
+            Squad {
+                NoWaitForFormation 1
+                TFBot {
+                    Class Heavyweapons
+                    Skill easy
+                    Tag medchain_2_leader_2
+                }
+
+                TFBot {
+                    Template T_TFBot_Medic
+                    Tag medchain_2_member_1
+                }
+
+                TFBot {
+                    Template T_TFBot_Medic_QuickFix
+                    Tag medchain_2_member_2
+                }
+            }
+        }
+
+        WaveSpawn {
+            Name wave1b
+            WaitForAllDead wave1a
+            Where spawnbot
+            TotalCount 8
+            MaxActive 4
+            SpawnCount 4
+            WaitBeforeStarting 0
+            WaitBetweenSpawns 0
+            TotalCurrency 300
+
+            Squad {
+                NoWaitForFormation 1
+                TFBot {
+                    Name "HEY! IM WALKIN HEAA!"
+                    ClassIcon pyro_homewrecker_lite
+                    Class Pyro
+                    Health 4500
+                    Skill Expert
+                    WeaponRestrictions MeleeOnly
+                    Attributes "MiniBoss"
+                    Attributes "AlwaysCrit"
+
+                    ItemAttributes {
+                        ItemName "The Homewrecker"
+                        "fire rate bonus" 1.5
+                        "dmg bonus vs buildings" 200
+                    }
+
+                    CharacterAttributes {
+                        "move speed bonus" 0.4
+                        "damage force reduction" 0.6
+                        "airblast vulnerability multiplier" 0.6
+                        "override footstep sound set" 6
+                    }
+
+                    Item "The Homewrecker"
+
+                    Tag medchain_1_leader_3
+                }
+
+                // Eventually chain the medics together
+                TFBot {
+                    Template T_TFBot_Giant_Medic
+                    Name "Giant Duckling"
+                    Tag medchain_1_member
+                }
+
+                TFBot {
+                    Template T_TFBot_Giant_Medic
+                    Name "Giant Duckling"
+                    Tag medchain_1_member
+                }
+
+                TFBot {
+                    Template T_TFBot_Giant_Medic
+                    Name "Giant Duckling"
+                    Tag medchain_1_member
+                }
+            }
+        }
+
+        WaveSpawn {
+            Name wave1b
+            WaitForAllDead wave1a
+            Where spawnbot
+            TotalCount 12
+            MaxActive 12
+            SpawnCount 3
+            WaitBeforeStarting 0
+            WaitBetweenSpawns 10
+            TotalCurrency 300
+
+            Squad {
+                NoWaitForFormation 1
+                TFBot {
+                    Template T_TFBot_Soldier_Extended_Buff_Banner
+                    Tag medchain_3_leader_2
+                }
+
+                TFBot {
+                    Template T_TFBot_Medic
+                    Tag medchain_3_member_1
+                }
+
+                TFBot {
+                    Template T_TFBot_Medic_QuickFix
+                    Tag medchain_3_member_2
+                }
+            }
+        }
+    }
+    }
+}
