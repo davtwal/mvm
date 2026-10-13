@@ -313,6 +313,8 @@ function MedicChainMedicBehavior(chainBots, infoTargets, memberIndex)
                     healTargetInfoTarget = infoTargets[i]
                     healTargetSpawnBotId = healTarget.SpawnBotId
                     
+					foundNewHealTarget = true
+					
                     formatInterruptActions()
                     
                     stopInterrupt()
